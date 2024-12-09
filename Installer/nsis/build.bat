@@ -1,13 +1,22 @@
 set FILE_NAME=CUBRID ADO.NET Data Provider 11.2.0.0002
 
+
+
+if "%VS2017COMNTOOLS%x" == "x" echo "Please add 'VS2017COMNTOOLS ' in the environment variable\n ex) C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\"
+
+if NOT EXIST "C:\Program Files (x86)\NSIS" (
+  echo "Please Install NSIS (PATH : C:\Program Files (x86)\NSIS)"
+)
+
+
 cd ..\..\Code\Src
-call "%VS140COMNTOOLS%vsvars32.bat"
+call "%VS2017COMNTOOLS%VsDevCmd.bat"
 devenv CUBRID.Data.CUBRIDClient.csproj /rebuild "Release|Any CPU" 
 cd ..\..\Installer\nsis
 rd /s/q Build
 md Build
 
-C:\NSIS\makensis CUBRID.nsi
+"C:\Program Files (x86)\NSIS\makensis" CUBRID.nsi
 
 copy "%FILE_NAME%.exe" Build\
 del /q "%FILE_NAME%.exe"

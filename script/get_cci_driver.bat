@@ -24,16 +24,16 @@ set INSTALL_DIRS=%SCRIPT_DIR%\..\Installer\nsis
 
 if EXIST "%SCRIPT_DIR%\cubrid-cci" rmdir /s /q cubrid-cci
 
-git clone git@github.com:CUBRID/cubrid-cci.git
+git clone git@github.com:hwany7seo/cubrid-cci.git -b vs_2017
 
-if "%VS140COMNTOOLS%x" == "x" echo "Please add 'VS140COMNTOOLS' in the environment variable\n ex) C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools"
+if "%VS2017COMNTOOLS%x" == "x" echo "Please add 'VS2017COMNTOOLS ' in the environment variable\n ex) C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\"
 
 cd %CCI_WIN_DIR%
 
-call "%VS140COMNTOOLS%vsvars32.bat"
-devenv cas_cci_v140_dll.vcxproj /build "release|x86"
+call "%VS2017COMNTOOLS%VsDevCmd.bat"
+devenv cas_cci_v141_dll.vcxproj /build "release|x86"
 if not "%ERRORLEVEL%" == "0" echo "Please check for 32bit V140 Relase Library." & GOTO END_SCRIPT
-devenv cas_cci_v140_dll.vcxproj /build "release|x64"
+devenv cas_cci_v141_dll.vcxproj /build "release|x64"
 if not "%ERRORLEVEL%" == "0" echo "Please check for 64bit V140 Relase Library." & GOTO END_SCRIPT
 
 ::call "%VS140COMNTOOLS%vsvars32.bat"
